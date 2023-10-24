@@ -1,0 +1,53 @@
+---
+title: "SNCURCS Correlation Table Heat Map"
+author: "Andrea Stancescu"
+date: "2023-10-18"
+output: html_document
+---
+
+```{r}
+library(haven)
+
+entry1corr <- read_sas('C:/Classes/ST 499/SAS Analysis and Regression/entry1kendall.sas7bdat')
+entry1corr <- entry1corr[4:9, 2:8]
+names(entry1corr)[1] <- "Predictor"
+entry1corr_m <- as.matrix(entry1corr[, 2:7 ])
+
+#colnames(entrycorr_m) = paste('feedback from advisor', 'advisor respects opinion', 'feel safe voicing feelings to advisor', 'relationship with advisor', 'department is welcoming', 'department emphasizes diversity')
+#rownames(entrycorr_m) = paste('feedback from advisor', 'advisor respects opinion', 'feel safe voicing feelings to advisor', 'relationship with advisor', 'department is welcoming', 'department emphasizes diversity')
+
+
+
+entry2corr <- read_sas('C:/Classes/ST 499/SAS Analysis and Regression/entry2kendall.sas7bdat')
+entry2corr <- entry2corr[4:9, 2:8]
+names(entry2corr)[1] <- "Predictor"
+entry2corr_m <- as.matrix(entry2corr[ , 2:7])
+
+```
+
+```{r}
+heatmap(entry1corr_m)
+image(1:6,1:6,entry1corr_m)
+text(x = row(entry1corr_m),
+     y = col(entry1corr_m),
+     label = sprintf("%.5f", entry1corr_m), 
+     xlab = 'advfeed advopn advfeel advrel depwelc depdiv',
+     ylab = 'advfeed advopn advfeel advrel depwelc depdiv' )
+
+
+
+heatmap(entry2corr_m)
+image(1:6,1:6,entry2corr_m)
+text(x = row(entry2corr_m),
+     y = col(entry2corr_m),
+     label = sprintf("%.5f", entry2corr_m))
+
+
+sprintf('advfeed advopn advfeel advrel depwelc depdiv')
+```
+
+
+
+
+
+
